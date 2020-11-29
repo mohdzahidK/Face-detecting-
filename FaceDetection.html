@@ -1,0 +1,47 @@
+<html>
+<head>
+    <script src="face-api.min.js"></script>
+
+
+ <style>
+     .overlay {
+         position: absolute;
+         top: 0;
+         left: 0;
+            }
+ </style>
+ <script type="text/javascript">
+ 	document.getElementId("canvasoverimage").innerHTML="just fun";
+ 	</script>
+ 
+
+    <script>
+        async function Load()
+        {
+            const MODEL_URL='ssd_mobilenetv1_model-shard2';
+            await faceapi.loadSsdMobilenetv1Model(MODEL_URL);
+            //deected
+            const input = document.getElementById('myImage');
+            let fullFacedDescriptions = await faceapi.detectAllFaces(input);
+            console.log(fullFacedDescriptions);
+
+            const C = document.getElementById('canvasoverimage');
+            faceapi.draw.drawDetections(C, fullFacedDescriptions);
+        } 
+   </script>
+   
+</head>
+
+
+
+<body>
+
+
+ <canvas id="canvasoverimage" class="overlay"></canvas>
+ <img id="myImage" src="image1.jpg"/>
+
+ <script>
+     Load();
+ </script>
+</body>
+</html>
